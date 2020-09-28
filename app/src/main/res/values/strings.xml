@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Android Http Server</string>
+    <string name="https_server_is_running">HTTPS Server is running..</string>
+</resources>

@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.voronsky.androidhttpserver"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/INDEX.LIST'
+        pickFirst 'META-INF/io.netty.versions.properties'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    ktor_version = '1.4.0'
+    conscrypt_version = '2.5.1'
+    timber_version = '4.7.1'
+    slf4j_timber_version = '3.1'
+
+    ktor = [
+            "io.ktor:ktor-server-core:$ktor_version",
+            "io.ktor:ktor-server-netty:$ktor_version",
+            "io.ktor:ktor-gson:$ktor_version"
+    ]
+
+    conscrypt = "org.conscrypt:conscrypt-android:$conscrypt_version"
+
+    logging_tools = [
+            "com.jakewharton.timber:timber:$timber_version",
+            "com.arcao:slf4j-timber:$slf4j_timber_version"
+    ]
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation ktor
+    implementation conscrypt
+    implementation logging_tools
+
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
